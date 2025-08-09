@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Binsaeed Enterprises</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e67e22;
+            --secondary-color: #d35400;
+            --text-color: #2d3436;
+            --bg-color: #f5f6fa;
+            --card-bg: #ffffff;
+            --shadow-color: #d1d9e6;
+            --shadow-color-dark: #a3b1c6;
+            --text-inverse: #f5f6fa;
+            --bg-inverse: #2d3436;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #f39c12;
+            --secondary-color: #e67e22;
+            --text-color: #f5f6fa;
+            --bg-color: #2d3436;
+            --card-bg: #3d4548;
+            --shadow-color: #1e2223;
+            --shadow-color-dark: #000000;
+            --text-inverse: #2d3436;
+            --bg-inverse: #f5f6fa;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+            background-color: rgba(230, 126, 34, 0.1);
+        }
+
+        nav ul li a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+            background-color: rgba(230, 126, 34, 0.15);
+        }
+
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            border-radius: 15px;
+            background-color: var(--card-bg);
+            box-shadow: 3px 3px 6px var(--shadow-color),
+                        -3px -3px 6px var(--shadow-color-dark);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+        }
+
+        .toggle-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            position: absolute;
+            left: 5px;
+            transition: transform 0.3s;
+        }
+
+        [data-theme="dark"] .toggle-thumb {
+            transform: translateX(30px);
+        }
+
+        /* Policy Page Specific Styles */
+        .policy-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 36px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .policy-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .policy-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 8px 8px 16px var(--shadow-color),
+                        -8px -8px 16px var(--shadow-color-dark);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .policy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 10px 10px 20px var(--shadow-color),
+                        -10px -10px 20px var(--shadow-color-dark);
+        }
+
+        .policy-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .policy-card p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        .policy-card ul {
+            padding-left: 25px;
+            margin-bottom: 15px;
+        }
+
+        .policy-card li {
+            margin-bottom: 12px;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        .policy-card li::before {
+            content: '•';
+            color: var(--secondary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        /* Color coding for different policy cards */
+        .policy-card:nth-child(1) {
+            border-left-color: #3498db; /* Information Collection */
+        }
+        .policy-card:nth-child(1) h3 {
+            color: #3498db;
+        }
+
+        .policy-card:nth-child(2) {
+            border-left-color: #2ecc71; /* Information Usage */
+        }
+        .policy-card:nth-child(2) h3 {
+            color: #2ecc71;
+        }
+
+        .policy-card:nth-child(3) {
+            border-left-color: #e74c3c; /* Information Sharing */
+        }
+        .policy-card:nth-child(3) h3 {
+            color: #e74c3c;
+        }
+
+        .policy-card:nth-child(4) {
+            border-left-color: #9b59b6; /* Cookies */
+        }
+        .policy-card:nth-child(4) h3 {
+            color: #9b59b6;
+        }
+
+        .policy-card:nth-child(5) {
+            border-left-color: #f39c12; /* User Rights */
+        }
+        .policy-card:nth-child(5) h3 {
+            color: #f39c12;
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--card-bg);
+            padding: 60px 0 20px;
+            margin-top: 60px;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--secondary-color);
+            border-radius: 3px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-links i {
+            width: 20px;
+            color: var(--secondary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--bg-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 3px 3px 6px var(--shadow-color),
+                        -3px -3px 6px var(--shadow-color-dark);
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 5px 5px 10px var(--shadow-color),
+                        -5px -5px 10px var(--shadow-color-dark);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--shadow-color);
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding-bottom: 15px;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                margin-top: 15px;
+                gap: 10px;
+            }
+
+            nav ul li {
+                margin-left: 10px;
+                margin-right: 10px;
+                margin-bottom: 5px;
+            }
+
+            .policy-card {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 30px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .policy-card {
+                padding: 18px 15px;
+            }
+
+            .section-title {
+                font-size: 26px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .policy-card h3 {
+                font-size: 20px;
+            }
+        }
+
+        /* Animation for policy cards */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .policy-card {
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .policy-card:nth-child(1) { animation-delay: 0.1s; }
+        .policy-card:nth-child(2) { animation-delay: 0.2s; }
+        .policy-card:nth-child(3) { animation-delay: 0.3s; }
+        .policy-card:nth-child(4) { animation-delay: 0.4s; }
+        .policy-card:nth-child(5) { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="logo">Binsaeed<span>Enterprises</span></div>
+        <div class="theme-toggle" id="themeToggle">
+            <div class="toggle-thumb"></div>
+        </div>
+    </header>
+
+    <section class="policy-section">
+        <h2 class="section-title">Privacy Policy</h2>
+        <div class="policy-content">
+            <div class="policy-card">
+                <h3><i class="fas fa-user-shield"></i> Information We Collect</h3>
+                <p>We collect personal information to provide and improve our services. This information is gathered when you:</p>
+                <ul>
+                    <li>Create an account or place an order on our website</li>
+                    <li>Subscribe to our newsletter or marketing communications</li>
+                    <li>Contact our customer service team via email, phone, or chat</li>
+                    <li>Participate in surveys, promotions, or contests</li>
+                    <li>Interact with our social media platforms</li>
+                </ul>
+                <p>The types of personal data we collect include:</p>
+                <ul>
+                    <li><strong>Identity Data:</strong> Name, username, date of birth</li>
+                    <li><strong>Contact Data:</strong> Email, phone number, shipping address</li>
+                    <li><strong>Financial Data:</strong> Payment card details (processed securely)</li>
+                    <li><strong>Technical Data:</strong> IP address, browser type, device information</li>
+                </ul>
+            </div>
+
+            <div class="policy-card">
+                <h3><i class="fas fa-lock"></i> How We Use Your Information</h3>
+                <p>We use your personal information only for legitimate business purposes, including:</p>
+                <ul>
+                    <li><strong>Order Processing:</strong> To process and fulfill your purchases</li>
+                    <li><strong>Customer Service:</strong> To respond to inquiries and provide support</li>
+                    <li><strong>Service Improvement:</strong> To enhance our products and user experience</li>
+                    <li><strong>Marketing:</strong> To send promotional offers (only with your consent)</li>
+                    <li><strong>Security:</strong> To detect and prevent fraud and unauthorized access</li>
+                    <li><strong>Legal Compliance:</strong> To meet regulatory requirements</li>
+                </ul>
+                <p>We never sell your personal information to third parties.</p>
+            </div>
+
+            <div class="policy-card">
+                <h3><i class="fas fa-share-alt"></i> Information Sharing</h3>
+                <p>We may share your information with trusted third parties only when necessary:</p>
+                <ul>
+                    <li><strong>Service Providers:</strong> Shipping carriers, payment processors, and IT support</li>
+                    <li><strong>Business Partners:</strong> Only for direct service fulfillment</li>
+                    <li><strong>Legal Authorities:</strong> When required by law or to protect our rights</li>
+                    <li><strong>Business Transfers:</strong> In case of merger or acquisition</li>
+                </ul>
+                <p>All third-party providers are contractually obligated to protect your data and use it only for the services we request.</p>
+            </div>
+
+            <div class="policy-card">
+                <h3><i class="fas fa-cookie"></i> Cookies & Tracking Technologies</h3>
+                <p>Our website uses cookies and similar technologies to:</p>
+                <ul>
+                    <li>Remember your preferences and login information</li>
+                    <li>Analyze website traffic and user behavior</li>
+                    <li>Enable shopping cart functionality</li>
+                    <li>Deliver targeted advertisements (with consent)</li>
+                    <li>Measure advertising effectiveness</li>
+                </ul>
+                <p>You can control cookies through your browser settings. However, disabling certain cookies may affect website functionality.</p>
+                <p>We also use Google Analytics to help analyze how users use our site. This tool uses cookies to collect standard internet log information.</p>
+            </div>
+
+            <div class="policy-card">
+                <h3><i class="fas fa-user-edit"></i> Your Privacy Rights</h3>
+                <p>Under data protection laws, you have rights including:</p>
+                <ul>
+                    <li><strong>Access:</strong> Request copies of your personal data</li>
+                    <li><strong>Rectification:</strong> Request correction of inaccurate data</li>
+                    <li><strong>Erasure:</strong> Request deletion of your personal data</li>
+                    <li><strong>Restriction:</strong> Request limitation of processing</li>
+                    <li><strong>Objection:</strong> Object to processing of your data</li>
+                    <li><strong>Portability:</strong> Request transfer of your data</li>
+                    <li><strong>Withdraw Consent:</strong> At any time where we rely on consent</li>
+                </ul>
+                <p>To exercise these rights, please contact our Data Protection Officer at <strong>privacy@binsaeed.com</strong>. We may need to verify your identity before processing requests.</p>
+                <p>You also have the right to lodge a complaint with your local data protection authority.</p>
+            </div>
+
+            <div class="policy-card">
+                <h3><i class="fas fa-calendar-alt"></i> Policy Updates</h3>
+                <p>We may update this Privacy Policy periodically. The latest version will always be posted on our website with the effective date.</p>
+                <p>Significant changes will be communicated through email or prominent website notices.</p>
+                <p><strong>Last Updated:</strong> January 1, 2023</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+            <div class="copyright">
+                <p>&copy; 2023 Binsaeed Enterprises. All Rights Reserved.</p>
+            </div>
+    </footer>
+</div>
+
+<script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const html = document.documentElement;
+
+    // Check for saved theme preference or use preferred color scheme
+    const savedTheme = localStorage.getItem('theme') ||
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    html.setAttribute('data-theme', savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    });
+</script>
+</body>
+</html>
