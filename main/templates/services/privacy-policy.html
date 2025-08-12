@@ -93,34 +93,6 @@
             background-color: rgba(230, 126, 34, 0.15);
         }
 
-        .theme-toggle {
-            position: relative;
-            width: 60px;
-            height: 30px;
-            border-radius: 15px;
-            background-color: var(--card-bg);
-            box-shadow: 3px 3px 6px var(--shadow-color),
-                        -3px -3px 6px var(--shadow-color-dark);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 0 5px;
-        }
-
-        .toggle-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            position: absolute;
-            left: 5px;
-            transition: transform 0.3s;
-        }
-
-        [data-theme="dark"] .toggle-thumb {
-            transform: translateX(30px);
-        }
-
         /* Policy Page Specific Styles */
         .policy-hero {
             text-align: center;
@@ -442,16 +414,10 @@
 </head>
 <body>
 <div class="container">
-    <header><div class="logo-container">
-<<<<<<< HEAD
-        <img src="{% static 'images/logo.jpg' %}" alt="BinSaeed Logo" class="logo">
-    </div>
-        <!--        <div class="theme-toggle" id="themeToggle"><div class="toggle-thumb"></div></div>-->
-=======
+    <header>
+        <div class="logo-container">
             <img src="{% static 'images/logo.jpg' %}" alt="BinSaeed Logo" class="logo">
         </div>
-<!--        <div class="theme-toggle" id="themeToggle"><div class="toggle-thumb"></div></div>-->
->>>>>>> 650d22293742fffe7e07b80ff5560a7609f0aac3
     </header>
 
     <section class="policy-section" id="privacy">
@@ -543,23 +509,5 @@
 
     <footer><div class="copyright"><p>&copy; 2023 Binsaeed Enterprises. All Rights Reserved.</p></div></footer>
 </div>
-
-<script>
-    // Theme toggle functionality
-    const themeToggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-
-    // Check for saved theme preference or use preferred color scheme
-    const savedTheme = localStorage.getItem('theme') ||
-                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    html.setAttribute('data-theme', savedTheme);
-
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-    });
-</script>
 </body>
 </html>

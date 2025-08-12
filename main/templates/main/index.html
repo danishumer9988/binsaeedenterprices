@@ -1,11 +1,13 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Binsaeed Enterprises - Premium Organic Spices</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@400;500&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -16,27 +18,12 @@
             --card-bg: #ffffff;
             --shadow-color: #d1d9e6;
             --shadow-color-dark: #a3b1c6;
-            --text-inverse: #f5f6fa;
-            --bg-inverse: #2d3436;
-        }
-
-        [data-theme="dark"] {
-            --primary-color: #f39c12;
-            --secondary-color: #e67e22;
-            --text-color: #f5f6fa;
-            --bg-color: #2d3436;
-            --card-bg: #3d4548;
-            --shadow-color: #1e2223;
-            --shadow-color-dark: #000000;
-            --text-inverse: #2d3436;
-            --bg-inverse: #f5f6fa;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
         }
 
         body {
@@ -58,7 +45,7 @@
             padding: 0 20px;
         }
 
-        /* Full-Screen Hero Section */
+        /* Hero Section - Modern Style with Enhanced Slider */
         .hero-section {
             position: relative;
             width: 100vw;
@@ -66,12 +53,14 @@
             overflow: hidden;
             margin-left: calc(-50vw + 50%);
             margin-right: calc(-50vw + 50%);
+            isolation: isolate;
         }
 
         .hero-slider {
             position: relative;
             width: 100%;
             height: 100%;
+            perspective: 1200px;
         }
 
         .hero-slide {
@@ -79,83 +68,267 @@
             width: 100%;
             height: 100%;
             opacity: 0;
-            transition: opacity 1.5s ease-in-out;
+            transform-style: preserve-3d;
+            transition:
+                opacity 1s cubic-bezier(0.33, 1, 0.68, 1),
+                transform 1.2s cubic-bezier(0.33, 1, 0.68, 1);
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background-color: rgba(0,0,0,0.5);
-            background-blend-mode: overlay;
+            /* Initial hidden state */
+            transform: translateX(5%) scale(0.95);
+            filter: brightness(0.9);
         }
 
         .hero-slide.active {
             opacity: 1;
+            transform: translateX(0) scale(1);
+            filter: brightness(1);
+            z-index: 2;
+        }
+
+        .hero-slide.next {
+            transform: translateX(5%) scale(0.95);
+            z-index: 1;
+        }
+
+        .hero-slide.prev {
+            transform: translateX(-5%) scale(0.95);
+            z-index: 1;
         }
 
         .hero-content {
-            max-width: 1200px;
-            padding: 0 40px;
+            max-width: 800px;
+            padding: 0 30px;
             color: white;
-            transform: translateY(-10%);
+            text-align: center;
         }
 
         .hero-content h1 {
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            margin-bottom: 1.5rem;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2rem, 4.5vw, 3rem);
+            margin-bottom: 1.2rem;
             line-height: 1.2;
-            animation: fadeInUp 0.8s ease-out;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+            animation: textFadeIn 0.8s ease-out 0.3s both;
         }
 
         .hero-content p {
-            font-size: clamp(1.1rem, 2vw, 1.8rem);
+            font-family: 'Poppins', sans-serif;
+            font-weight: 400;
+            font-size: clamp(1rem, 2.2vw, 1.3rem);
             margin-bottom: 2.5rem;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-            max-width: 800px;
-            margin: 0 auto 2.5rem;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
+            line-height: 1.6;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+            animation: textFadeIn 0.8s ease-out 0.5s both;
         }
 
+        /* Enhanced Button Styles with Hover Animations */
         .hero-buttons {
             display: flex;
             gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
+            animation: textFadeIn 0.8s ease-out 0.7s both;
         }
 
-        /* Slider Navigation */
-        .slider-nav {
+        .btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 32px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            border-radius: 50px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            z-index: 1;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            z-index: -1;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .btn-primary:hover::before {
+            transform: scale(1.1);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-outline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .btn-outline:hover {
+            color: #222;
+            border-color: transparent;
+        }
+
+        .btn-outline:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+        /* Buy Now Button Animation */
+        .buy-now-btn {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .buy-now-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            z-index: -1;
+            transition: opacity 0.4s ease;
+            opacity: 0;
+        }
+
+        .buy-now-btn:hover::after {
+            opacity: 1;
+        }
+
+        .buy-now-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Modern Slider Navigation */
+        .slider-controls {
             position: absolute;
             bottom: 3rem;
             left: 0;
             right: 0;
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
             z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .slider-nav {
+            display: flex;
+            gap: 0.8rem;
         }
 
         .slider-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background-color: rgba(255,255,255,0.5);
+            background-color: rgba(255,255,255,0.4);
             cursor: pointer;
             border: none;
             padding: 0;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slider-dot::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: white;
+            transition: width 4s linear;
         }
 
         .slider-dot.active {
-            background-color: white;
-            transform: scale(1.3);
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .slider-dot.active::after {
+            width: 100%;
+            transition: width 4s linear;
+        }
+
+        .slider-arrows {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .slider-arrow {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.15);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+
+        .slider-arrow:hover {
+            background-color: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+
+        .slider-arrow i {
+            font-size: 1.1rem;
         }
 
         /* Animations */
-        @keyframes fadeInUp {
+        @keyframes textFadeIn {
             from {
                 opacity: 0;
                 transform: translateY(20px);
@@ -163,6 +336,74 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero-content {
+                padding: 0 25px;
+            }
+
+            .hero-content h1 {
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
+            }
+
+            .hero-content p {
+                font-size: clamp(0.95rem, 2.5vw, 1.15rem);
+            }
+
+            .btn {
+                padding: 12px 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-slide {
+                transform: translateX(8%) scale(0.97);
+            }
+
+            .slider-controls {
+                bottom: 2rem;
+            }
+
+            .hero-buttons {
+                gap: 1rem;
+            }
+
+            .btn {
+                padding: 11px 24px;
+                font-size: 0.9rem;
+            }
+
+            .slider-arrow {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-content h1 {
+                font-size: clamp(1.7rem, 6vw, 2.2rem);
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 200px;
+            }
+
+            .slider-dot {
+                width: 10px;
+                height: 10px;
+            }
+
+            .slider-arrow {
+                width: 36px;
+                height: 36px;
             }
         }
 
@@ -196,71 +437,27 @@
             padding: 5px 10px;
             border-radius: 5px;
             font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
         }
 
         nav ul li a:hover {
-            color: var(--primary-color);
-        }
-
-        .theme-toggle {
-            position: relative;
-            width: 60px;
-            height: 30px;
-            border-radius: 15px;
-            background-color: var(--card-bg);
-            box-shadow: 3px 3px 6px var(--shadow-color),
-                        -3px -3px 6px var(--shadow-color-dark);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            padding: 0 5px;
-        }
-
-        .toggle-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: var(--primary-color);
-            position: absolute;
-            left: 5px;
-            transition: transform 0.3s;
-        }
-
-        [data-theme="dark"] .toggle-thumb {
-            transform: translateX(30px);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 600;
-            box-shadow: 3px 3px 6px var(--shadow-color),
-                        -3px -3px 6px var(--shadow-color-dark);
-            border: none;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 5px 5px 10px var(--shadow-color),
-                        -5px -5px 10px var(--shadow-color-dark);
-            background-color: var(--secondary-color);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border: 2px solid white;
-            color: white;
-        }
-
-        .btn-outline:hover {
-            background-color: white;
             color: var(--primary-color);
         }
 
@@ -288,7 +485,7 @@
             border-radius: 3px;
         }
 
-     /* About Section Styles */
+        /* About Section Styles */
         #about {
             padding: 80px 0;
             background-color: var(--bg-color);
@@ -328,11 +525,21 @@
             font-size: 16px;
             display: flex;
             align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .salt-benefits li:hover {
+            transform: translateX(5px);
         }
 
         .salt-benefits i {
             color: var(--primary-color);
             margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .salt-benefits li:hover i {
+            transform: scale(1.2);
         }
 
         .about-image {
@@ -343,6 +550,12 @@
             width: 100%;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        .salt-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
         }
 
         /* Responsive Design */
@@ -374,11 +587,30 @@
             box-shadow: 5px 5px 10px var(--shadow-color),
                         -5px -5px 10px var(--shadow-color-dark);
             text-align: center;
-            transition: transform 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(230, 126, 34, 0.1), rgba(211, 84, 0, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .product-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .product-card:hover::before {
+            opacity: 1;
         }
 
         .product-card img {
@@ -387,17 +619,32 @@
             object-fit: cover;
             border-radius: 8px;
             margin-bottom: 15px;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
         }
 
         .product-card h3 {
             margin-bottom: 10px;
             color: var(--primary-color);
             font-size: 22px;
+            transition: color 0.3s ease;
+        }
+
+        .product-card:hover h3 {
+            color: var(--secondary-color);
         }
 
         .product-card p {
             margin-bottom: 15px;
             color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .product-card:hover p {
+            color: #555;
         }
 
         .product-price {
@@ -405,6 +652,11 @@
             color: var(--secondary-color);
             margin: 15px 0;
             font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover .product-price {
+            transform: scale(1.05);
         }
 
         .categories-list {
@@ -424,11 +676,33 @@
             cursor: pointer;
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .category-item:hover {
-            background-color: var(--primary-color);
             color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .category-item:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
         .contact-container {
@@ -443,6 +717,11 @@
             border-radius: 10px;
             box-shadow: 5px 5px 10px var(--shadow-color),
                         -5px -5px 10px var(--shadow-color-dark);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-info:hover {
+            transform: translateY(-5px);
         }
 
         .contact-info h3 {
@@ -459,6 +738,11 @@
             display: flex;
             align-items: flex-start;
             margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(5px);
         }
 
         .contact-icon {
@@ -466,6 +750,11 @@
             color: var(--primary-color);
             font-size: 20px;
             min-width: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.2);
         }
 
         .contact-form {
@@ -475,6 +764,11 @@
             border-radius: 10px;
             box-shadow: 5px 5px 10px var(--shadow-color),
                         -5px -5px 10px var(--shadow-color-dark);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-form:hover {
+            transform: translateY(-5px);
         }
 
         .form-group {
@@ -498,6 +792,14 @@
             box-shadow: inset 3px 3px 6px var(--shadow-color),
                         inset -3px -3px 6px var(--shadow-color-dark);
             font-family: 'Open Sans', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            box-shadow: inset 3px 3px 6px var(--shadow-color),
+                        inset -3px -3px 6px var(--shadow-color-dark),
+                        0 0 0 2px var(--primary-color);
         }
 
         textarea.form-control {
@@ -514,6 +816,11 @@
                         -5px -5px 10px var(--shadow-color-dark);
             max-width: 600px;
             margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+
+        .newsletter:hover {
+            transform: translateY(-5px);
         }
 
         .newsletter h3 {
@@ -536,6 +843,14 @@
             color: var(--text-color);
             box-shadow: inset 3px 3px 6px var(--shadow-color),
                         inset -3px -3px 6px var(--shadow-color-dark);
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-input:focus {
+            outline: none;
+            box-shadow: inset 3px 3px 6px var(--shadow-color),
+                        inset -3px -3px 6px var(--shadow-color-dark),
+                        0 0 0 2px var(--primary-color);
         }
 
         .newsletter-btn {
@@ -547,10 +862,31 @@
             cursor: pointer;
             font-weight: 600;
             font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .newsletter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        .newsletter-btn:hover::before {
+            opacity: 1;
         }
 
         .newsletter-btn:hover {
-            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         footer {
@@ -584,10 +920,28 @@
             color: var(--text-color);
             text-decoration: none;
             font-family: 'Open Sans', sans-serif;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
         }
 
         .footer-links a:hover {
             color: var(--primary-color);
+            padding-left: 5px;
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
         }
 
         .social-links {
@@ -609,12 +963,14 @@
             color: var(--text-color);
             text-decoration: none;
             font-size: 18px;
+            transition: all 0.3s ease;
         }
 
         .social-link:hover {
             background-color: var(--primary-color);
             color: white;
-            transform: translateY(-3px);
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .copyright {
@@ -624,12 +980,6 @@
             color: var(--text-color);
             opacity: 0.8;
             font-family: 'Open Sans', sans-serif;
-        }
-
-        .buy-now-btn {
-            background-color: var(--secondary-color);
-            margin-top: 15px;
-            width: 100%;
         }
 
         /* WhatsApp Button */
@@ -667,6 +1017,11 @@
             color: var(--text-color);
             font-size: 24px;
             cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
         }
 
         /* Responsive Styles */
@@ -802,7 +1157,9 @@
 <div class="container">
     <header>
         <div class="logo-container">
-            <img src="{% static 'images/logo.jpg' %}" alt="BinSaeed Logo" class="logo">
+            <a href="#hero">
+                <img src="{% static 'images/logo.jpg' %}" alt="BinSaeed Logo" class="logo">
+            </a>
         </div>
         <nav>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
@@ -814,7 +1171,6 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </nav>
-<!--        <div class="theme-toggle" id="themeToggle"><div class="toggle-thumb"></div></div>-->
     </header>
 
     <!-- Hero Section -->
@@ -823,10 +1179,10 @@
             <!-- Slide 1 -->
             <div class="hero-slide active" style="background-image: url('{% static 'images/hero1.jpg' %}')">
                 <div class="hero-content">
-                    <h1>Premium Organic Spices & Salts</h1>
-                    <p>Experience the authentic taste of nature with our carefully sourced organic spices and salts from the finest locations around the world.</p>
+                    <h1>PURE SALT FOR A PURE WORLD</h1>
+                    <p>Pakistan's Leading Organic Salt Manufacturing and Export Brand.</p>
                     <div class="hero-buttons">
-                        <a href="#products" class="btn">Our Products</a>
+                        <a href="#products" class="btn btn-primary">Products</a>
                         <a href="#contact" class="btn btn-outline">Order Now</a>
                     </div>
                 </div>
@@ -835,19 +1191,29 @@
             <!-- Slide 2 -->
             <div class="hero-slide" style="background-image: url('{% static 'images/hero2.jpg' %}')">
                 <div class="hero-content">
-                    <h1>100% Natural & Pure</h1>
-                    <p>No additives, no preservatives - just pure, natural spices as nature intended. Farm to table quality you can trust.</p>
+                    <h1>PURE SALT FOR A PURE WORLD</h1>
+                    <p>Pakistan's Leading Organic Salt Manufacturing and Export Brand.</p>
                     <div class="hero-buttons">
-                        <a href="#products" class="btn">Explore Products</a>
-                        <a href="#about" class="btn btn-outline">Learn More</a>
+                        <a href="#products" class="btn btn-primary">Products</a>
+                        <a href="#contact" class="btn btn-outline">Order Now</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Navigation Dots -->
-            <div class="slider-nav">
-                <button class="slider-dot active" data-slide="0"></button>
-                <button class="slider-dot" data-slide="1"></button>
+            <!-- Slider Controls -->
+            <div class="slider-controls">
+                <div class="slider-nav">
+                    <button class="slider-dot active"></button>
+                    <button class="slider-dot"></button>
+                </div>
+                <div class="slider-arrows">
+                    <button class="slider-arrow">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="slider-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -876,35 +1242,36 @@
         </div>
     </section>
 
-
     <section id="products">
         <h2 class="section-title">Our Products</h2>
         <div class="products-grid">
             <div class="product-card">
                 <img src="{% static 'images/p1.jpg' %}" alt="Himalayan Pink Salt">
                 <h3>Edible Salt</h3>
-                <p>Bin Saeed Enterprises is a trusted name in the production and supply of premium edible salt, carefully sourced and refined to meet the highest quality standards. Our edible salt is rich in essential minerals, free from impurities, and perfect for everyday cooking, baking, and seasoning needs. With a commitment to purity, taste, and health, Bin Saeed Enterprises ensures that every grain delivers freshness and natural goodness from the source to your table.</p>
+                <p>Bin Saeed Enterprises is a trusted name in the production and supply of premium edible salt, carefully sourced and refined to meet the highest quality standards. Our edible salt is rich in essential minerals, free from impurities, and perfect for everyday cooking, baking, and seasoning needs.</p>
                 <div class="product-price">$5.99 / 500g</div>
                 <button class="btn buy-now-btn">Buy Now</button>
             </div>
             <div class="product-card">
                 <img src="{% static 'images/p2.jpg' %}" alt="Organic Chili Powder">
                 <h3>Salt Kitchenware</h3>
-                <p>Bin Saeed Enterprises proudly presents its premium Salt Kitchenware collection, crafted to combine functionality, durability, and elegance. Our range includes salt grinders, shakers, and storage solutions designed to preserve freshness while enhancing your culinary experience. Made from high-quality materials and precision-engineered for ease of use, our Salt Kitchenware brings both style and convenience to your kitchen, making seasoning an effortless delight.</p>
+                <p>Bin Saeed Enterprises proudly presents its premium Salt Kitchenware collection, crafted to combine functionality, durability, and elegance. Our range includes salt grinders, shakers, and storage solutions designed to preserve freshness while enhancing your culinary experience.</p>
                 <div class="product-price">$4.99 / 200g</div>
                 <button class="btn buy-now-btn">Buy Now</button>
             </div>
             <div class="product-card">
                 <img src="{% static 'images/p3.jpg' %}" alt="Turmeric Powder">
                 <h3>Salt Block Cattle Lick</h3>
-                <p>Salt Block Cattle Lick by Bin Saeed Enterprises is a natural and mineral-rich salt supplement designed to support the health and productivity of livestock. Sourced from pure Himalayan rock salt, these blocks provide essential minerals such as sodium, calcium, magnesium, and trace elements that promote better digestion, improved feed efficiency, and stronger immune systems. Weather-resistant and long-lasting, they are ideal for cattle, horses, goats, and other grazing animals, ensuring consistent mineral intake all year round.</p>
+                <p>Salt Block Cattle Lick by Bin Saeed Enterprises is a natural and mineral-rich salt supplement designed to support the health and productivity of livestock. Sourced from pure Himalayan rock salt, these blocks provide essential minerals that promote better digestion and stronger immune systems.</p>
                 <div class="product-price">$6.49 / 200g</div>
                 <button class="btn buy-now-btn">Buy Now</button>
             </div>
             <div class="product-card">
-                <img src="{% static 'images/hero1.jpg' %}" alt="Cumin Powder">
-                <h3>Industrial Salt</h3>
-                <p>Industrial Salt by Bin Saeed Enterprises is high-quality, naturally sourced salt used across various industries for manufacturing, processing, and preservation purposes. Extracted from pure deposits, it is free from harmful impurities and ideal for applications such as water treatment, textile dyeing, leather tanning, de-icing, chemical production, and oil drilling. With consistent grain size and superior purity, our industrial salt ensures reliable performance and cost-effective solutions for industrial needs.</p>
+                <img src="{% static 'images/about.jpg' %}" alt="Cumin Powder">
+                <h3>Rock Salt</h3>
+                <p>BinSaeed Enterprises offers premium Rock Salt, rich in natural minerals like calcium, potassium, and magnesium. Sourced from ancient deposits, our rock salt is pure, flavorful, and perfect for cooking, wellness, and decorative uses like salt lamps. We ensure quality and authenticity in every grain.
+                    Naturally pink and visually stunning, it adds elegance to your kitchen and table.
+                    Trusted by households and chefs for its unmatched purity and taste.</p>
                 <div class="product-price">$5.29 / 200g</div>
                 <button class="btn buy-now-btn">Buy Now</button>
             </div>
@@ -1026,22 +1393,6 @@
 </footer>
 
 <script>
-    // Theme toggle functionality
-    const themeToggle = document.getElementById('themeToggle');
-    const html = document.documentElement;
-
-    // Check for saved theme preference or use preferred color scheme
-    const savedTheme = localStorage.getItem('theme') ||
-                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    html.setAttribute('data-theme', savedTheme);
-
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = html.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-    });
-
     // Mobile menu toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const navMenu = document.getElementById('navMenu');
@@ -1057,55 +1408,125 @@
         });
     });
 
-    // Enhanced Hero Slider Functionality
-    let currentSlide = 0;
-    const slides = document.querySelectorAll('.hero-slide');
-    const dots = document.querySelectorAll('.slider-dot');
-    let slideInterval;
-    const slideDuration = 6000; // 6 seconds
+    // Enhanced Hero Slider Functionality with Smooth Animations
+    document.addEventListener('DOMContentLoaded', function() {
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        const prevArrow = document.querySelector('.slider-arrow .fa-chevron-left')?.closest('.slider-arrow');
+        const nextArrow = document.querySelector('.slider-arrow .fa-chevron-right')?.closest('.slider-arrow');
+        let slideInterval;
+        const slideDuration = 4000; // 4 seconds (matches CSS transition)
 
-    function showSlide(index) {
-        // Reset all slides and dots
-        slides.forEach(slide => slide.classList.remove('active'));
-        dots.forEach(dot => dot.classList.remove('active'));
+        // Set up slide classes for animation
+        function setupSlideStates(targetIndex) {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev', 'next');
 
-        // Show current slide and dot
-        slides[index].classList.add('active');
-        dots[index].classList.add('active');
-        currentSlide = index;
-    }
+                if (index === targetIndex) {
+                    slide.classList.add('active');
+                } else if (index === (targetIndex + 1) % slides.length) {
+                    slide.classList.add('next');
+                } else if (index === (targetIndex - 1 + slides.length) % slides.length) {
+                    slide.classList.add('prev');
+                }
+            });
+        }
 
-    function nextSlide() {
-        let nextIndex = (currentSlide + 1) % slides.length;
-        showSlide(nextIndex);
-    }
+        function showSlide(index) {
+            // Don't do anything if we're already on this slide
+            if (index === currentSlide) return;
 
-    function startSlider() {
-        slideInterval = setInterval(nextSlide, slideDuration);
-    }
+            // Reset animation classes
+            setupSlideStates(index);
 
-    function stopSlider() {
-        clearInterval(slideInterval);
-    }
+            // Update dots
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
 
-    // Initialize slider
-    showSlide(0);
-    startSlider();
+            // Reset the animation timer on the active dot
+            const activeDot = dots[index];
+            activeDot.classList.remove('active');
+            void activeDot.offsetWidth; // Trigger reflow
+            activeDot.classList.add('active');
 
-    // Pause on hover
-    const slider = document.querySelector('.hero-slider');
-    slider.addEventListener('mouseenter', stopSlider);
-    slider.addEventListener('mouseleave', startSlider);
+            currentSlide = index;
+        }
 
-    // Manual navigation with dots
-    dots.forEach(dot => {
-        dot.addEventListener('click', function() {
-            const slideIndex = parseInt(this.getAttribute('data-slide'));
-            showSlide(slideIndex);
-            // Reset timer when manually changing slides
-            stopSlider();
+        function nextSlide() {
+            let nextIndex = (currentSlide + 1) % slides.length;
+            showSlide(nextIndex);
+        }
+
+        function prevSlide() {
+            let prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+            showSlide(prevIndex);
+        }
+
+        function startSlider() {
+            stopSlider(); // Clear any existing interval
+            slideInterval = setInterval(nextSlide, slideDuration);
+        }
+
+        function stopSlider() {
+            clearInterval(slideInterval);
+        }
+
+        // Initialize slider
+        function initSlider() {
+            setupSlideStates(0);
+            dots[0].classList.add('active');
             startSlider();
-        });
+
+            // Pause on hover
+            const slider = document.querySelector('.hero-slider');
+            if (slider) {
+                slider.addEventListener('mouseenter', stopSlider);
+                slider.addEventListener('mouseleave', startSlider);
+            }
+
+            // Manual navigation with dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    showSlide(index);
+                    // Reset timer when manually changing slides
+                    stopSlider();
+                    startSlider();
+                });
+            });
+
+            // Arrow navigation
+            if (nextArrow) {
+                nextArrow.addEventListener('click', function() {
+                    nextSlide();
+                    stopSlider();
+                    startSlider();
+                });
+            }
+
+            if (prevArrow) {
+                prevArrow.addEventListener('click', function() {
+                    prevSlide();
+                    stopSlider();
+                    startSlider();
+                });
+            }
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowRight') {
+                    nextSlide();
+                    stopSlider();
+                    startSlider();
+                } else if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                    stopSlider();
+                    startSlider();
+                }
+            });
+        }
+
+        initSlider();
     });
 
     // Form handling
@@ -1185,8 +1606,4 @@ Order Details: ${orderData.order}`;
     });
 </script>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> 650d22293742fffe7e07b80ff5560a7609f0aac3
