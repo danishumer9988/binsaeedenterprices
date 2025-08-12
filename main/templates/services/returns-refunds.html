@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -58,14 +59,9 @@
             position: relative;
         }
 
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .logo span {
-            color: var(--secondary-color);
+        .logo-container img {
+            height: 60px;
+            width: auto;
         }
 
         nav ul {
@@ -126,6 +122,20 @@
         }
 
         /* Policy Page Specific Styles */
+        .policy-hero {
+            text-align: center;
+            padding: 80px 0;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('{% static "images/returns-banner.jpg" %}') no-repeat center center/cover;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .policy-hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
         .policy-section {
             padding: 60px 0;
         }
@@ -372,6 +382,10 @@
             .footer-content {
                 grid-template-columns: 1fr 1fr;
             }
+
+            .policy-hero h1 {
+                font-size: 36px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -389,6 +403,14 @@
 
             .policy-card h3 {
                 font-size: 20px;
+            }
+
+            .policy-hero h1 {
+                font-size: 28px;
+            }
+
+            .policy-hero {
+                padding: 60px 0;
             }
         }
 
@@ -418,13 +440,13 @@
 <body>
 <div class="container">
     <header>
-        <div class="logo">Binsaeed<span>Enterprises</span></div>
-        <div class="theme-toggle" id="themeToggle">
-            <div class="toggle-thumb"></div>
+        <div class="logo-container">
+            <img src="{% static 'images/logo.jpg' %}" alt="BinSaeed Logo" class="logo">
         </div>
+<!--        <div class="theme-toggle" id="themeToggle"><div class="toggle-thumb"></div></div>-->
     </header>
 
-    <section class="policy-section">
+    <section class="policy-section" id="returns">
         <h2 class="section-title">Returns & Refunds Policy</h2>
         <div class="policy-content">
             <div class="policy-card">
