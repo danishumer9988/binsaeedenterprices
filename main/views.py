@@ -41,7 +41,6 @@ def submit_order(request):
         whatsapp_message = f"New Order from {name} ({phone}):\nEmail: {email}\nOrder Details: {order_details}"
         whatsapp_url = f"https://wa.me/923001234567?text={urllib.parse.quote(whatsapp_message)}"
 
-        # Redirect to WhatsApp with the order details
         return redirect(whatsapp_url)
 
     return redirect('index')
