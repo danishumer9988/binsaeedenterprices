@@ -420,6 +420,49 @@
             height: 60px;
             width: auto;
         }
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo {
+            height: 50px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .logo-link:hover .logo {
+            transform: scale(1.05);
+        }
+
+        .logo-link:hover .logo-text {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                height: 40px;
+            }
+            .logo-text {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text {
+                display: none; /* Hide text on very small screens */
+            }
+        }
 
         nav ul {
             display: flex;
@@ -1157,8 +1200,9 @@
 <div class="container">
     <header>
         <div class="logo-container">
-            <a href="#hero">
+            <a href="#hero" class="logo-link">
                 <img src="{% static 'images/logo.jpg' %}" alt="BinSaeed Logo" class="logo">
+                <span class="logo-text">BinSaeed Enterprises</span>
             </a>
         </div>
         <nav>
@@ -1172,7 +1216,6 @@
             </ul>
         </nav>
     </header>
-
     <!-- Hero Section -->
     <div class="hero-section">
         <div class="hero-slider">
